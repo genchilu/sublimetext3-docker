@@ -7,11 +7,12 @@ RUN apt-get update -y && \
     apt-get install libglib2.0-dev -y &&\
     apt-get install libx11-dev -y && \
     apt-get install libgtk2.0-0 -y && \
+    apt-get install wget -y && \
     apt-get autoremove -y && \
     apt-get clean
 
-COPY sublime-text_build-3083_amd64.deb /root/sublime-text_build-3083_amd64.deb
 
+RUN wget http://c758482.r82.cf2.rackcdn.com/sublime-text_build-3083_amd64.deb -P /root
 RUN gdebi /root/sublime-text_build-3083_amd64.deb --n
 
 RUN locale-gen --no-purge en_US.UTF-8
@@ -22,8 +23,10 @@ ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
 #Chinese font
-apt-get install fonts-wqy-zenhei -y
+RUN apt-get install fonts-wqy-zenhei -y
 
 USER root
 
 VOLUME ["/workspace"]
+
+ENTRYPOINT /opt/sublime_text/sublime_text
