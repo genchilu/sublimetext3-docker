@@ -25,6 +25,9 @@ ENV LC_ALL en_US.UTF-8
 #Chinese font
 RUN apt-get install fonts-wqy-zenhei -y
 
+#add package control
+COPY ./sublime-text-3/ /root/.config/sublime-text-3/
+
 USER root
 
 VOLUME ["/workspace"]
